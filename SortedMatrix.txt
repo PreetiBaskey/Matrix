@@ -57,3 +57,68 @@ int main() {
     
     return 0;
 }
+
+
+// Optimized approach
+// Time Complexity :- O(N2LogN)
+// Space Complexity :- O(N2)
+
+#include<bits/stdc++.h>
+using namespace std;
+
+vector<vector<int>> get2DSortedMatrix(vector<vector<int>> &mat) {
+    int N = mat.size();
+    priority_queue<int, vector<int>, greater<int>> pq;
+    
+    for(int i = 0; i < N; i++) {
+        for(int j = 0; j < N; j++) {
+            pq.push(mat[i][j]);
+        }
+    }
+    int r = 0, c = 0;
+    while(!pq.empty()) {
+        int front_data = pq.top();
+        mat[r][c] = front_data;
+        c++;
+        if(c == N) {
+            c = 0;
+            r++;
+        }
+        pq.pop();
+    }
+    
+    return mat;
+}
+
+int main() {
+    
+    int N;
+    cout<<"Enter number for square matrix :- ";
+    cin>>N;
+    vector<vector<int>> mat(N, vector<int>(N));
+    
+    for(int i = 0; i < N; i++) {
+        cout<<"Enter "<<i<<"th row :- ";
+        for(int j = 0; j < N; j++) {
+            cin>>mat[i][j];
+        }
+    }
+    cout<<"2D matrix is :- "<<endl;
+    for(int i = 0; i < N; i++) {
+        for(int j = 0; j < N; j++) {
+            cout<<mat[i][j]<<" ";
+        }
+        cout<<endl;
+    }
+    
+    vector<vector<int>> sorted2DMatrix = get2DSortedMatrix(mat);
+    cout<<"2D matrix after sorting is :- "<<endl;
+    for(int i = 0; i < N; i++) {
+        for(int j = 0; j < N; j++) {
+            cout<<mat[i][j]<<" ";
+        }
+        cout<<endl;
+    }
+    
+    return 0;
+}
