@@ -1,4 +1,5 @@
 // Brute Force Approach
+// Time Complexity :- O(r*c)
 
 #include<bits/stdc++.h>
 using namespace std;
@@ -13,6 +14,69 @@ int getRow(vector<vector<int>> &mat) {
         for(int j = 0; j < c; j++) {
             if(mat[i][j] == 1) {
                 count++;
+            }
+        }
+        if(count > mx) {
+            mx = count;
+            idx = i;
+        }
+    }
+    
+    return idx;
+}
+
+int main() {
+    
+    int n, m;
+    cout<<"Enter number of rows :- ";
+    cin>>m;
+    cout<<"Enter number of columns :- ";
+    cin>>n;
+    vector<vector<int>> mat(m, vector<int>(n));
+    
+    for(int i = 0; i < m; i++) {
+        cout<<"Enter "<<i<<"th row :- ";
+        for(int j = 0; j < n; j++) {
+            cin>>mat[i][j];
+        }
+    }
+    cout<<"2 D matrix is :- "<<endl;
+    for(int i = 0; i < m; i++) {
+        for(int j = 0; j < n; j++) {
+            cout<<mat[i][j]<<" ";
+        }
+        cout<<endl;
+    }
+    
+    int row = getRow(mat);
+    cout<<"Row with maximum number of 1s is :- "<<row<<"th";
+    
+    return 0;
+}
+
+
+// Optimized Approach 
+// Time Complexity :- O(rlogc)
+
+#include<bits/stdc++.h>
+using namespace std;
+
+int getRow(vector<vector<int>> &mat) {
+    int r = mat.size();
+    int c = mat[0].size();
+    
+    int mx = INT_MIN, idx = 0;
+    
+    for(int i = 0; i < r; i++) {
+        int start = 0, end = c - 1, mid = 0,count = 0;
+        while(start <= end) {
+            mid = start + (end - start) / 2;
+            if(mat[i][mid] == 1) {
+                end = mid - 1;
+                count++;
+            }
+            else {
+                start = mid + 1;
             }
         }
         if(count > mx) {
