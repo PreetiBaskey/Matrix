@@ -105,8 +105,8 @@ int main() {
 
 
 // 3rd approach | using max heap
-// Time complexity :- O(N2logN)
-// Space complexity :- O(N2)
+// Time complexity :- O(N2logk)
+// Space complexity :- O(k)
 
 #include<bits/stdc++.h>
 using namespace std;
